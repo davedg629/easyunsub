@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{{super()}}
+
+<p>One of the annoying things about creating a new Reddit account is having to unsubscribe from all of the default subreddits. You actually have to click unsubscribe for each of the ~50 default subreddits...until now.
+
+<p>Out of irrational anger, we created EasyUnsub, a simple app that makes unsubscribing a little less infuriating. We say a <em>little less</em> because it still isn't an instantaneous process (it would be if Reddit decided to write a few lines of code!).
+
+<p>To use this app you'll need to login with your Reddit account, wait for your subscribed subreddits to load, click a button that selects them all, click another button to submit the form, click yet another button to confirm, and then wait while the app automatically unsubscribes you from your subreddits (which takes like a minute because of Reddit API rate limiting).</p>
+
+<p>Hey, at least you aren't clicking unsubscribe ~50 times like some kind of animal.</p>
+
+<p><strong>Click the button below to login with your Reddit account and get started.</strong></p>
+
+<p><a id="login-reddit" href="{{ oauth_link }}"><img src="http://groupsrc.com/rdrafts/login_reddit.png?ver=3.0" alt="Authorize with reddit" /></a></p>
+
+{% endblock %}

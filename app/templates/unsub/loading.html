@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{{super()}}
+
+<p>You are being unsubscribed from the subreddits you selected. Due to rate limites of the Reddit API this can take up to a few minutes, depending on how many subreddits you selected. If you selected more than a few subreddits, feel free to leave this tab here while you do more important things with your life.</p>
+
+<p>Once this process is done, you will be redirected back to the Unsubscribe form.</p>
+
+<div id="progress-bar"></div>
+
+{% endblock %}

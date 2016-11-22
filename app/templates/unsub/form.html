@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{{super()}}
+
+{% if form %}
+<div id="crawl-form-wrap">
+    <form method="POST" class="form" role="form">
+
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.subreddits.label }}
+            {% if form.subreddits.errors %}
+                <ul class="errors">{% for error in form.subreddits.errors %}<li class="text-danger">{{ error }}</li>{% endfor %}</ul>
+            {% endif %}
+            <p>
+                <a class="check-btn" href="#">Check All</a>
+                {% for group in groups %} | <a class="group-btn" data-group="{{ group.id }}" href="#">{{ group.name }}</a>{% endfor %}
+            </p>
+            <table width="100%">
+            {% set count = 1 %}
+            {% for sub in form.subreddits.choices %}
+                {% if count == 1 %}
+                <tr>
+                {% endif %}
+                    <td>
+                        <input id="subreddits-{{ loop.index }}" name="subreddits" type="checkbox" value="{{ sub[0] }}" />
+                        &nbsp; <label for="subreddits-{{ loop.index }}">/r/{{ sub[0] }}</label>
+                    </td>
+                {% if count == 4 %}
+                </tr>
+                    {% set count = 1 %}
+                {% else %}
+                    {% set count = count + 1 %}
+                {% endif %}
+            {% endfor %}
+            </table>
+        </div>
+
+        {{ form.submit(class="btn btn-default") }}
+
+    </form>
+
+</div>
+{% else %}
+<p>You are not subscribed to any subreddits. <a href="https://www.reddit.com/subreddits">Click here to subscribe to subreddits</a>.</p>
+{% endif %}
+
+{% if 'subreddits' in session %}
+<hr />
+<h2>Thanks for using EasyUnsub</h2>
+<p>EasyUnsub was created by <a href="http://groupsrc.com" target="_blank">GroupSRC</a> and is sponsored by <a href="http://marketersguidetoreddit.com" target="_blank">MarketersGuideToReddit.com</a>, the only blog dedicated to ethical Reddit marketing.</p>
+
+<p>If you need help finding new subreddits to subscribe to, <a href="http://marketersguidetoreddit.com/how-to-find-subreddits-related-to-your-niche/" target="_blank">read this article from our blog</a>.</p>
+{% endif %}
+
+{% endblock %}

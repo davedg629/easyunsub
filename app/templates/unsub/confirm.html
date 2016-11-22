@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{{super()}}
+
+<p>You will be unsubscribed from the following subreddits:</p>
+
+<ul>
+{% for sub in subreddits %}
+
+<li>/r/{{sub}}</li>
+
+{% endfor %}
+</ul>
+
+{% import "bootstrap/wtf.html" as wtf %}
+{{ wtf.quick_form(form) }}
+
+{% endblock %}

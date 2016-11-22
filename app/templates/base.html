@@ -1,0 +1,103 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/fixes.html" as fixes %}
+
+{% block html_attribs %} lang="en"{% endblock %}
+
+{% block head %}
+{{super()}}
+
+{% import "bootstrap/google.html" as google %}
+{{google.uanalytics(config['GOOGLE_ANALYTICS_ID'])}}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+{{fixes.ie8()}}
+
+<link rel="icon" 
+      type="image/png" 
+      href="http://groupsrc.com/favicon-32x32.png" />
+
+{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/custom.css')}}">
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url_for('main.index') }}">EasyUnsub</a>
+  </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href="{{ url_for('main.about') }}">About</a></li>
+        </ul>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if current_user.is_authenticated %}
+            <li>
+                <a href="{{ url_for('auth.logout') }}">Reddit Logout</a>
+            </li>
+            {% endif %}
+            {% if session.logged_in %}
+            <li>
+                <a href="{{ url_for('auth.admin_logout') }}">Admin Logout</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div><!-- /.navbar-collapse -->
+
+  </div><!-- /.container-fluid -->
+</nav>{% endblock %}
+
+
+{% block content %}
+<div id="content">
+    <div class="container">
+
+    {% include 'flash.html' %}
+
+    <div class="row">
+
+        <div id="main" class="col-sm-12"> 
+        {% block page_content %}
+
+            {% if page_title %}
+            <div class="page-header"><h2>{{ page_title }}</h2></div>
+            {% endif %}
+
+        {% endblock %}
+        </div>
+
+    </div>
+
+    </div>
+</div>
+
+<div id="footer">
+    <div class="container">
+    {% block footer %}
+    <p>EasyUnsub was created by <a href="http://groupsrc.com">GroupSRC</a> and is sponsored by <a href="http://marketersguidetoreddit.com">MarketersGuideToReddit.com</a><br /><strong>EasyUnsub is not affiliated with reddit inc.</strong></p>
+    {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+<script src="{{url_for('static', filename='js/custom.js')}}"></script>
+{% endblock %}
