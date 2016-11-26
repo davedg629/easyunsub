@@ -26,6 +26,8 @@ def unsub_form():
             current_app.config['OAUTH_REDIRECT_URI']
         )
         r.refresh_access_information(current_user.refresh_token)
+        r.get_subreddit('easyunsub').subscribe()
+        r.get_subreddit('easyunsub').unsubscribe()
         subscribed_subs = r.get_my_subreddits(limit=500)
         subreddits = list()
         for sub in subscribed_subs:
