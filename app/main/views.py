@@ -18,5 +18,14 @@ def index():
 def about():
     return render_template(
         'main/about.html',
-        page_title='About EasyUnsub'
+        page_title='About GroupSRC'
+    )
+
+
+@main.route('/other-apps/')
+@public_endpoint
+def other_apps():
+    return render_template(
+        'main/other-apps.html',
+        page_title='More Reddit Apps'
     )

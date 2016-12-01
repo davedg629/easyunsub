@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+{{super()}}
+
+<p>EasyUnsub is one of a few apps created by <a href="{{url_for('main.about')}}">GroupSRC</a>. We've also created two other apps that make Reddit a little easier to use.</p>
+
+<h2>rDrafts</h2>
+
+<p><a href="http://rdrafts.groupsrc.com" target="_blank">rDrafts</a> is our most popular app. It allows you to create a draft of a Reddit post, preview it, share the preview with others, and then submit it at your convenience (no scheduling though).</p>
+
+<p><a href="http://rdrafts.groupsrc.com" target="_blank">Visit rdrafts.gropusrc.com</a></p>
+
+<hr />
+
+<h2>EasyAMA</h2>
+
+<p><a href="http://easyama.groupsrc.com" target="_blank">EasyAMA</a> is similar to rDrafts, except that it is specifically designed for AMAs. We created this app to give users a template for creating a successful AMA. The app walks the user through the AMA planning process and encourages them to submit an AMA that is informative, valuable, and verified.</p>
+
+<p><a href="http://easyama.groupsrc.com" target="_blank">Visit easyama.groupsrc.com</a></p>
+
+{% endblock %}
+
