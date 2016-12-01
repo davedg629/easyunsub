@@ -33,37 +33,4 @@ $(function() {
         });
     }
 
-    if ($('#progress-bar').length) {
-        
-        function update_progress(job_id) {
-            $('.page-header h2').fadeOut();
-            $('.page-header h2').fadeIn();
-            setTimeout(function() {
-                check_status(job_id);
-            }, 4000);
-        }
-
-        function check_status(job_id) {
-            $.get(
-                '/status/' + job_id,
-                function(data, status, request) {
-                    if (status == 'success') {
-                        if (data == 'Nay!') {
-                            update_progress(job_id);
-                        } else {
-                            window.location.replace('/');
-                        }
-                    } else {
-                        alert("There has been an error.");
-                    }
-                }
-            );
-        }
-
-        var pathArray = window.location.pathname.split( '/' );
-        var job_id = pathArray[2];
-        check_status(job_id);
-
-    }
-
 });

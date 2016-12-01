@@ -5,8 +5,6 @@ from flask_login import LoginManager
 from flask_admin import Admin
 from flask_moment import Moment
 from config import config
-from rq import Queue
-from worker import conn
 
 
 bootstrap = Bootstrap()
@@ -16,8 +14,6 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 admin = Admin(name='EasyUnsub')
 moment = Moment()
-
-q = Queue(connection=conn)
 
 
 def create_app(config_name):

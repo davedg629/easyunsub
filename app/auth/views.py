@@ -9,6 +9,7 @@ from .utils import generate_token
 from .decorators import admin_login_required, public_endpoint
 from .forms import LoginForm
 import praw
+import prawcore
 
 
 @auth.before_app_request
@@ -80,17 +81,17 @@ def logout():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
-    r = praw.Reddit(user_agent=current_app.config['REDDIT_USER_AGENT'])
-    r.set_oauth_app_info(
-        current_app.config['REDDIT_APP_ID'],
-        current_app.config['REDDIT_APP_SECRET'],
-        current_app.config['OAUTH_REDIRECT_URI']
+    r = praw.Reddit(
+        client_id=current_app.config['REDDIT_APP_ID'],
+        client_secret=current_app.config['REDDIT_APP_SECRET'],
+        redirect_uri=current_app.config['OAUTH_REDIRECT_URI'],
+        user_agent=current_app.config['REDDIT_USER_AGENT']
     )
     session['oauth_token'] = generate_token()
-    oauth_link = r.get_authorize_url(
-        session['oauth_token'],
+    oauth_link = r.auth.url(
         ['identity', 'subscribe', 'mysubreddits'],
-        True
+        session['oauth_token'],
+        'permanent'
     )
     return render_template(
         'auth/login.html',
@@ -107,14 +108,14 @@ def authorize():
     if current_user.is_anonymous and (state == session['oauth_token']):
         try:
             code = request.args.get('code', '')
-            r = praw.Reddit(user_agent=current_app.config['REDDIT_USER_AGENT'])
-            r.set_oauth_app_info(
-                current_app.config['REDDIT_APP_ID'],
-                current_app.config['REDDIT_APP_SECRET'],
-                current_app.config['OAUTH_REDIRECT_URI']
+            r = praw.Reddit(
+                client_id=current_app.config['REDDIT_APP_ID'],
+                client_secret=current_app.config['REDDIT_APP_SECRET'],
+                redirect_uri=current_app.config['OAUTH_REDIRECT_URI'],
+                user_agent=current_app.config['REDDIT_USER_AGENT']
             )
-            access_info = r.get_access_information(code)
-            user_reddit = r.get_me()
+            refresh_token = r.auth.authorize(code)
+            user_reddit = r.user.me()
             user = User.query\
                 .filter_by(username=user_reddit.name)\
                 .first()
@@ -122,12 +123,12 @@ def authorize():
                 user = User(
                     username=user_reddit.name,
                     role_id=2,
-                    refresh_token=access_info['refresh_token']
+                    refresh_token=refresh_token
                 )
                 db.session.add(user)
                 db.session.commit()
             else:
-                user.refresh_token = access_info['refresh_token']
+                user.refresh_token = refresh_token
                 db.session.commit()
             login_user(user)
             if 'subscribed' in session:
@@ -135,7 +136,7 @@ def authorize():
             flash('Hi /u/' + user.username + '! You have successfully' +
                   ' logged in with your reddit account.')
             return redirect(url_for('main.index'))
-        except praw.errors.OAuthException:
+        except prawcore.OAuthException:
             flash('There was a problem with your login. Please try again.')
             return redirect(url_for('auth.login'))
     else:
