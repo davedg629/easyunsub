@@ -50,9 +50,11 @@
 {% if 'subreddits' in session %}
 <hr />
 <h2>Thanks for using EasyUnsub</h2>
-<p>EasyUnsub was created by <a href="http://groupsrc.com" target="_blank">GroupSRC</a> and is sponsored by <a href="http://marketersguidetoreddit.com" target="_blank">MarketersGuideToReddit.com</a>, the only blog dedicated to ethical Reddit marketing.</p>
+<p>EasyUnsub was created by <a href="{{url_for('main.about')}}">GroupSRC</a> and is sponsored by <a href="http://marketersguidetoreddit.com" target="_blank">MarketersGuideToReddit.com</a>, the only blog dedicated to ethical Reddit marketing.</p>
 
-<p>If you need help finding new subreddits to subscribe to, <a href="http://marketersguidetoreddit.com/how-to-find-subreddits-related-to-your-niche/" target="_blank">read this article from our blog</a>.</p>
+<p><strong>If you need help finding new subreddits,</strong> <a href="http://marketersguidetoreddit.com/how-to-find-subreddits-related-to-your-niche/" target="_blank">read this article from our blog</a>.</p>
+
+<p><strong>If you are an experienced Redditor,</strong> <a href="https://www.reddit.com/message/compose?to=ddigiovanni&subject=EasyUnsub" target="_blank">please message me to tell me what you think about this app</a>.</p>
 {% endif %}
 
 {% endblock %}
