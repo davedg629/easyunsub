@@ -3,17 +3,27 @@
 {% block page_content %}
 {{super()}}
 
-<p>You will be unsubscribed from the following subreddits:</p>
-
-<ul>
-{% for sub in subreddits %}
-
-<li>/r/{{sub}}</li>
-
-{% endfor %}
-</ul>
-
 {% import "bootstrap/wtf.html" as wtf %}
 {{ wtf.quick_form(form) }}
+
+<p style="margin-top: 15px;"><strong>Click the button above to unsubscribe from the subreddits below. This action cannot be undone.</strong></p>
+
+<table width="100%">
+{% set count = 1 %}
+{% for sub in subreddits %}
+    {% if count == 1 %}
+    <tr>
+    {% endif %}
+        <td>
+            <p>/r/{{ sub }}</p>
+        </td>
+    {% if count == 4 %}
+    </tr>
+        {% set count = 1 %}
+    {% else %}
+        {% set count = count + 1 %}
+    {% endif %}
+{% endfor %}
+</table>
 
 {% endblock %}

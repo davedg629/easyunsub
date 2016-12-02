@@ -49,31 +49,8 @@ img.pull-right {margin: 0 0 15px 15px;}
 .text-center {text-align: center;}
 .text-right {text-align: right;}
 
-/* --- listing --- */
-.categories {margin: 0 0 20px 0;}
-
-.listing .list-item {border-bottom: 1px solid #dddddd; margin: 0 0 16px; padding: 0 0 5px;}
-.listing .list-item.last {border-bottom: 0 none; margin-bottom: 0; padding-bottom: 0;}
-.listing .list-item h3 {font-size: 19px; line-height: 23px; margin: 0 0 3px;}
-.listing .list-item p.meta {font-size: 13px;}
-.listing .list-item p.meta a {color: #1577b9;}
-
-.listing .list-item .col {float: left; width: 48%;}
-.listing .list-item .col-2 {float: right;}
-
-.video-embed {margin-bottom: 12px;}
-.video-embed img {display: block; height: auto; width: 100%;}
-.video-embed iframe {display: block;}
-
-.page-nav {margin-top: 20px;}
-.page-nav > div {width: 50%;}
-.page-nav > div.prev {float: left;}
-.page-nav > div.next {float: right; text-align: right;}
-
-.embed-controls a.stop {display: none;}
-
-.jscroll-added {border-top: 4px dashed #000000; margin-top: 44px; padding-top: 40px;}
-.jscroll-added .page-nav .prev {display: none;}
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active {background-color: #e99002; border-color: #d08002;}
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active {background-color: #f04124; border-color: #ea2f10;}
 
 /* --- forms --- */
 .form-group .form-control {max-width: 100%; width: auto;}

@@ -20,13 +20,16 @@
 $(function() {
 
     if ($('#crawl-form-wrap').length) {
-        $('ul#subreddits').before(' &nbsp; <a class="check-btn" href="#">Uncheck All</a>');
         $('a.check-btn').click(function(e){
             if ($(this).text() == 'Uncheck All') {
                 $('input:checkbox').prop('checked', false);
+                $(this).removeClass('btn-danger');
+                $(this).addClass('btn-warning');
                 $(this).text('Check All');
             } else {
                 $('input:checkbox').prop('checked', true);
+                $(this).removeClass('btn-warning');
+                $(this).addClass('btn-danger');
                 $(this).text('Uncheck All')
             }
             e.preventDefault();

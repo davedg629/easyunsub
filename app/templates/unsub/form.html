@@ -15,8 +15,7 @@
                 <ul class="errors">{% for error in form.subreddits.errors %}<li class="text-danger">{{ error }}</li>{% endfor %}</ul>
             {% endif %}
             <p>
-                <a class="check-btn" href="#">Check All</a>
-                {% for group in groups %} | <a class="group-btn" data-group="{{ group.id }}" href="#">{{ group.name }}</a>{% endfor %}
+                <a class="check-btn btn btn-warning btn-xs" href="#">Check All</a>
             </p>
             <table width="100%">
             {% set count = 1 %}
@@ -38,7 +37,7 @@
             </table>
         </div>
 
-        {{ form.submit(class="btn btn-default") }}
+        {{ form.submit(class="btn btn-primary") }}
 
     </form>
 
